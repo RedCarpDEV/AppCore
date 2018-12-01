@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using Xunit;
 
-namespace RCd.AppCore.Test
+namespace RCd.AppCore.Test.Logging
 {
 
     public class LoggerTest
