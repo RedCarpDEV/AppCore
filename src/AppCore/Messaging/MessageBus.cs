@@ -32,7 +32,7 @@ namespace RCd.AppCore.Messaging
             if (string.IsNullOrEmpty(channelId)) throw new ArgumentNullException(nameof(channelId));
             if (IsChannelRegistered(channelId)) throw new InvalidOperationException($"Channel registered already: {channelId}");
 
-            _channels[channelId] = _messageChannelFactory.Invoke(channelId) ?? throw new ArgumentNullException(nameof(channelId));
+            _channels[channelId] = _messageChannelFactory.Invoke(channelId);
 
             return this;
         }

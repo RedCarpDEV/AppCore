@@ -28,19 +28,7 @@ namespace RCd.AppCore.Test.Messaging
             Assert.Throws<ArgumentNullException>(() => messageBus.RegisterChannel(null));
             Assert.Throws<ArgumentNullException>(() => messageBus.RegisterChannel(string.Empty));
         }
-
-        [Fact]
-        public void RegisterChannel_Throws_ArgumentNullException_If_Factory_Returns_Null()
-        {
-            const string registeredChannelId = nameof(registeredChannelId);
-
-            IMessageChannel MessageBusFactory(string channelId) => null;
-
-            var messageBus = new MessageBus(MessageBusFactory);
-
-            Assert.Throws<ArgumentNullException>(() => messageBus.RegisterChannel(registeredChannelId));
-        }
-
+        
         [Fact]
         public void RegisterChannel_Throws_InvalidOperationException_If_ChannelId_Is_Registered_Already()
         {
