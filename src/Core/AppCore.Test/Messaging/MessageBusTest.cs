@@ -67,7 +67,20 @@ namespace RCd.AppCore.Test.Messaging
         }
 
         [Fact]
-        public void GetChannel_Throws_KeyNotFoundException_If_Channel_Is_Not_Registered()
+        public void GetChannel_Throws_ArgumentNullException_If_Channel_Is_Null_Or_Empty()
+        {
+            var mockMessageChannel = new Mock<IMessageChannel>();
+
+            IMessageChannel MessageBusFactory(string channelId) => mockMessageChannel.Object;
+
+            var messageBus = new MessageBus(MessageBusFactory);
+
+            Assert.Throws<ArgumentNullException>(() => messageBus.GetChannel(null));
+            Assert.Throws<ArgumentNullException>(() => messageBus.GetChannel(string.Empty));
+        }
+
+        [Fact]
+        public void GetChannel_Throws_ArgumentNullException_If_ChannelId_Is_Not_Registered()
         {
             const string notRegisteredChannelId = nameof(notRegisteredChannelId);
 
@@ -77,8 +90,6 @@ namespace RCd.AppCore.Test.Messaging
 
             var messageBus = new MessageBus(MessageBusFactory);
 
-            Assert.Throws<KeyNotFoundException>(() => messageBus.GetChannel(null));
-            Assert.Throws<KeyNotFoundException>(() => messageBus.GetChannel(string.Empty));
             Assert.Throws<KeyNotFoundException>(() => messageBus.GetChannel(notRegisteredChannelId));
         }
 

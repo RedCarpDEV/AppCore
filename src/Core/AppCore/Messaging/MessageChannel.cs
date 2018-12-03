@@ -51,7 +51,7 @@ namespace RCd.AppCore.Messaging
                 _subscribers[messageType] = new List<ISubscriber>();
             }
 
-            _subscribers[typeof(TMessage)].Add(subscriber);
+            _subscribers[messageType].Add(subscriber);
 
             return subscriber;
         }

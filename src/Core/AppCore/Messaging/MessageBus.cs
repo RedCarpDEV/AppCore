@@ -45,7 +45,7 @@ namespace RCd.AppCore.Messaging
 
         public IMessageChannel GetChannel(string channelId)
         {
-            if (string.IsNullOrEmpty(channelId)) throw new KeyNotFoundException($"Channel not found: {channelId}");
+            if (string.IsNullOrEmpty(channelId)) throw new ArgumentNullException(nameof(channelId));
             return _channels[channelId];
         }
 
