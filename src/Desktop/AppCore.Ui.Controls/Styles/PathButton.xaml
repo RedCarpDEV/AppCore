@@ -1,0 +1,120 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:RCd.AppCore.Ui.Desktop.Controls">
+
+    <ControlTemplate x:Key="PathButton.Template.Default" TargetType="controls:PathButton">
+        <Border
+            x:Name="Border"
+            Width="{TemplateBinding Width}"
+            Height="{TemplateBinding Height}"
+            Margin="{TemplateBinding Margin}"
+            HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+            VerticalAlignment="{TemplateBinding VerticalAlignment}"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            Opacity="{TemplateBinding Opacity}">
+            <Grid
+                Margin="{TemplateBinding Padding}"
+                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Path
+                    x:Name="Image"
+                    Grid.Column="0"
+                    Width="{TemplateBinding ImageWidth}"
+                    Height="{TemplateBinding ImageHeight}"
+                    Data="{TemplateBinding Source}"
+                    Fill="{TemplateBinding Foreground}"
+                    Focusable="True"
+                    RenderTransformOrigin="0.5,0.5"
+                    Stretch="{TemplateBinding Stretch}"
+                    Stroke="{TemplateBinding ImageBorder}"
+                    StrokeThickness="{TemplateBinding ImageBorderThickness}">
+                    <Path.RenderTransform>
+                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                    </Path.RenderTransform>
+                </Path>
+
+                <ContentPresenter
+                    x:Name="ContentPresenter"
+                    Grid.Column="1"
+                    Content="{TemplateBinding Content}"
+                    Focusable="False"
+                    RecognizesAccessKey="True"
+                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+            </Grid>
+
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal">
+                        <Storyboard>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Image" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1" />
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Image" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1" />
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+                    <VisualState x:Name="MouseOver">
+                        <Storyboard>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Image" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1.2" />
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Image" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1.2" />
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+                    <VisualState x:Name="Pressed">
+                        <Storyboard>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Image" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="1.1" />
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Image" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="1.1" />
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsDefaulted" Value="True">
+                <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="Border" Property="Opacity" Value="0.8" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+
+    <Style x:Key="PathButton.Style.Default" TargetType="controls:PathButton">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Margin" Value="{DynamicResource Thickness.Margin.Default}" />
+        <Setter Property="Padding" Value="{DynamicResource Thickness.Padding.Default}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Thickness.Border.Empty}" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource Accent.Default}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+        <Setter Property="Focusable" Value="True" />
+        <Setter Property="Template" Value="{StaticResource PathButton.Template.Default}" />
+    </Style>
+
+    <Style BasedOn="{StaticResource PathButton.Style.Default}" TargetType="controls:PathButton" />
+
+</ResourceDictionary>

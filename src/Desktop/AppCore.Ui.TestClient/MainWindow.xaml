@@ -1,0 +1,133 @@
+﻿<controls:AppWindow
+    x:Class="AppCore.Ui.TestClient.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://redcarpdesigns.com/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="1600"
+    Height="850"
+    Loaded="Window_Loaded"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+
+    <Grid SnapsToDevicePixels="True">
+        <Grid.LayoutTransform>
+            <ScaleTransform
+                x:Name="Tr"
+                ScaleX="1"
+                ScaleY="1" />
+        </Grid.LayoutTransform>
+
+        <Grid Background="{DynamicResource Brush.Background.Default}">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel
+                Grid.Row="0"
+                Grid.Column="0"
+                Width="200">
+                <Button Margin="5" Content="Button" />
+                <Button
+                    Margin="5"
+                    Content="Disabled"
+                    IsEnabled="False" />
+            </StackPanel>
+
+
+            <StackPanel
+                Grid.Row="0"
+                Grid.Column="1"
+                Width="200">
+                <ComboBox
+                    Margin="5"
+                    IsDropDownOpen="False"
+                    ItemsSource="{Binding Items}" />
+                <ComboBox
+                    Margin="5"
+                    IsDropDownOpen="False"
+                    IsEditable="True"
+                    ItemsSource="{Binding Items}" />
+                <ComboBox
+                    Margin="5"
+                    IsDropDownOpen="False"
+                    IsEnabled="False"
+                    ItemsSource="{Binding Items}"
+                    SelectedIndex="1" />
+            </StackPanel>
+
+
+            <StackPanel
+                Grid.Row="0"
+                Grid.Column="2"
+                Width="200">
+                <TextBox Margin="5" Text="TextBox" />
+                <TextBox
+                    Margin="5"
+                    IsReadOnly="True"
+                    Text="Readonly" />
+                <TextBox
+                    Margin="5"
+                    IsEnabled="False"
+                    Text="Disabled" />
+            </StackPanel>
+
+            <StackPanel
+                Grid.Row="0"
+                Grid.Column="3"
+                Width="200">
+                <ToggleButton
+                    Margin="5"
+                    HorizontalContentAlignment="Left"
+                    Content="ToggleButton"
+                    IsChecked="False" />
+                <ToggleButton
+                    Margin="5"
+                    HorizontalContentAlignment="Left"
+                    Content="ToggleButton"
+                    IsChecked="True" />
+                <ToggleButton
+                    Margin="5"
+                    HorizontalContentAlignment="Left"
+                    Content="Disabled Off"
+                    IsEnabled="False" />
+                <ToggleButton
+                    Margin="5"
+                    HorizontalContentAlignment="Left"
+                    Content="Disabled On"
+                    IsChecked="True"
+                    IsEnabled="False" />
+            </StackPanel>
+
+        </Grid>
+
+        <StackPanel
+            Width="255"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom">
+            <Slider
+                Maximum="255"
+                Minimum="0"
+                Value="{Binding Red}" />
+            <Slider
+                Maximum="255"
+                Minimum="0"
+                Value="{Binding Green}" />
+            <Slider
+                Maximum="255"
+                Minimum="0"
+                Value="{Binding Blue}" />
+        </StackPanel>
+
+    </Grid>
+</controls:AppWindow>

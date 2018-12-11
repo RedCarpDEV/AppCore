@@ -1,0 +1,104 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ControlTemplate x:Key="ButtonBase.Template.Default" TargetType="ButtonBase">
+        <Border
+            x:Name="Border"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            SnapsToDevicePixels="True"
+            UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
+            <ContentPresenter
+                x:Name="ContentPresenter"
+                Margin="{TemplateBinding Padding}"
+                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                Focusable="False"
+                RecognizesAccessKey="True"
+                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource Brush.Background.Layer2}" />
+                <Setter Property="Background" Value="{DynamicResource Brush.Background.Layer2}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource Accent.Default}" />
+                <Setter Property="Background" Value="{DynamicResource Accent.Default}" />
+            </Trigger>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource Accent.Default}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.8" />
+                <Setter Property="FontStyle" Value="Italic" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="Background" Value="{DynamicResource Brush.Background.Default}" />
+                <Setter Property="Foreground" Value="{DynamicResource Brush.Foreground.Layer1}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="ButtonBase.Style.Default" TargetType="ButtonBase">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Margin" Value="{DynamicResource Thickness.Margin.Default}" />
+        <Setter Property="Padding" Value="{DynamicResource Thickness.Padding.Default}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource Thickness.Border.Default}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush.Background.Layer1}" />
+        <Setter Property="Background" Value="{DynamicResource Brush.Background.Layer1}" />
+        <Setter Property="Foreground" Value="{DynamicResource Brush.Foreground.Default}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+        <Setter Property="Template" Value="{StaticResource ButtonBase.Template.Default}" />
+    </Style>
+
+    <Style
+        x:Key="Button.Style.Default"
+        BasedOn="{StaticResource ButtonBase.Style.Default}"
+        TargetType="Button">
+        <Style.Triggers>
+            <Trigger Property="IsDefaulted" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style BasedOn="{StaticResource ButtonBase.Style.Default}" TargetType="ButtonBase" />
+
+    <Style BasedOn="{StaticResource ButtonBase.Style.Default}" TargetType="Button" />
+
+
+    <!--  Special Button Styles  -->
+
+    <Style
+        x:Key="Button.Style.System"
+        BasedOn="{StaticResource ButtonBase.Style.Default}"
+        TargetType="Button">
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush.Background.Default}" />
+        <Setter Property="Background" Value="{DynamicResource Brush.Background.Default}" />
+        <Setter Property="Foreground" Value="{DynamicResource Brush.Foreground.Layer1}" />
+        <Setter Property="Focusable" Value="False" />
+    </Style>
+
+    <Style
+        x:Key="Button.Style.SystemClose"
+        BasedOn="{StaticResource ButtonBase.Style.Default}"
+        TargetType="Button">
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush.Background.Default}" />
+        <Setter Property="Background" Value="{DynamicResource Brush.Background.Default}" />
+        <Setter Property="Foreground" Value="{DynamicResource Brush.Foreground.Layer1}" />
+        <Setter Property="Focusable" Value="False" />
+        <Style.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#FFFF0000" />
+                <Setter Property="BorderBrush" Value="#FFFF0000" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

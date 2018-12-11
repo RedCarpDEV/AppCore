@@ -1,0 +1,291 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:RCd.AppCore.Ui.Desktop.Controls"
+    xmlns:media="http://schemas.microsoft.com/netfx/2009/xaml/presentation">
+
+    <!--  ***** Resources *****  -->
+
+    <media:Geometry x:Key="Window.MainMenu">F1 M 17,23L 34,20.7738L 34,37L 17,37L 17,23 Z M 34,55.2262L 17,53L 17,39L 34,39L 34,55.2262 Z M 59,17.5L 59,37L 36,37L 36,20.5119L 59,17.5 Z M 59,58.5L 36,55.4881L 36,39L 59,39L 59,58.5 Z</media:Geometry>
+    <media:Geometry x:Key="Window.Operations.Minimize">F1 M 19,38L 57,38L 57,44L 19,44L 19,38 Z</media:Geometry>
+    <media:Geometry x:Key="Window.Operations.Maximize">F1 M 18,23L 58,23L 58,53L 18,53L 18,23 Z M 54,31L 22,31L 22,49L 54,49L 54,31 Z</media:Geometry>
+    <media:Geometry x:Key="Window.Operations.Restore">F1 M 18,23L 58,23L 58,53L 18,53L 18,23 Z M 54,31L 22,31L 22,49L 54,49L 54,31 Z M 45,38L 45,42L 31,42L 31,38L 45,38 Z</media:Geometry>
+    <media:Geometry x:Key="Window.Operations.Close">F1 M 26.9166,22.1667L 37.9999,33.25L 49.0832,22.1668L 53.8332,26.9168L 42.7499,38L 53.8332,49.0834L 49.0833,53.8334L 37.9999,42.75L 26.9166,53.8334L 22.1666,49.0833L 33.25,38L 22.1667,26.9167L 26.9166,22.1667 Z</media:Geometry>
+    <media:Geometry x:Key="Window.Operations.Resize">F1 M1,10 L3,10 M5,10 L7,10 M9,10 L11,10 M2,9 L2,11 M6,9 L6,11 M10,9 L10,11 M5,6 L7,6 M9,6 L11,6 M6,5 L6,7 M10,5 L10,7 M9,2 L11,2 M10,1 L10,3</media:Geometry>
+
+    <!--  ***** Title *****  -->
+
+    <Style x:Key="TitleTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontFamily" Value="{StaticResource Font.Semibold}" />
+        <Setter Property="TextAlignment" Value="Left" />
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        <Setter Property="Foreground" Value="{DynamicResource Accent.Default}" />
+    </Style>
+
+
+    <!--  ***** Windows Operations *****  -->
+
+    <DataTemplate x:Key="SystemButtonTemplate">
+        <controls:PathImage
+            Foreground="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}}"
+            ImageHeight="10"
+            ImageWidth="10"
+            Source="{Binding}"
+            Stretch="Uniform" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="WindowsOperationsTemplate">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Button
+                Grid.Column="0"
+                Width="36"
+                Height="36"
+                Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}"
+                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                Content="{StaticResource Window.Operations.Minimize}"
+                ContentTemplate="{StaticResource SystemButtonTemplate}"
+                Style="{DynamicResource Button.Style.System}"
+                ToolTip="Minimieren"
+                WindowChrome.IsHitTestVisibleInChrome="True" />
+            <Button
+                x:Name="MaximizeButton"
+                Grid.Column="1"
+                Width="36"
+                Height="36"
+                Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}"
+                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                Content="{StaticResource Window.Operations.Maximize}"
+                ContentTemplate="{StaticResource SystemButtonTemplate}"
+                Style="{DynamicResource Button.Style.System}"
+                ToolTip="Maximieren"
+                WindowChrome.IsHitTestVisibleInChrome="True" />
+            <Button
+                Grid.Column="2"
+                Width="48"
+                Height="36"
+                Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}"
+                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                Content="{StaticResource Window.Operations.Close}"
+                ContentTemplate="{StaticResource SystemButtonTemplate}"
+                Style="{DynamicResource Button.Style.SystemClose}"
+                ToolTip="Schließen"
+                WindowChrome.IsHitTestVisibleInChrome="True" />
+        </Grid>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource TemplatedParent}}" Value="Maximized">
+                <Setter TargetName="MaximizeButton" Property="Content" Value="{StaticResource Window.Operations.Restore}" />
+                <Setter TargetName="MaximizeButton" Property="ToolTip" Value="Verkleinern" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource TemplatedParent}}" Value="Normal">
+                <Setter TargetName="MaximizeButton" Property="Content" Value="{StaticResource Window.Operations.Maximize}" />
+                <Setter TargetName="MaximizeButton" Property="ToolTip" Value="Maximieren" />
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+
+    <!--  ***** Tools *****  -->
+
+    <ItemsPanelTemplate x:Key="DefaultToolsPanel">
+        <StackPanel IsItemsHost="True" Orientation="Horizontal" />
+    </ItemsPanelTemplate>
+
+    <!--  ***** AppWindow *****  -->
+
+    <Style x:Key="DefaultAppWindowStyle" TargetType="controls:AppWindow">
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome
+                    CaptionHeight="50"
+                    CornerRadius="0"
+                    GlassFrameThickness="1"
+                    NonClientFrameEdges="None"
+                    UseAeroCaptionButtons="False" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ResizeMode" Value="CanResizeWithGrip" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+        <Setter Property="MinHeight" Value="100" />
+        <Setter Property="MinWidth" Value="200" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Accent.Default}" />
+        <Setter Property="Background" Value="{DynamicResource Brush.Background.Default}" />
+        <Setter Property="Foreground" Value="{DynamicResource Brush.Foreground.Default}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="MainMenuContent" Value="{StaticResource Window.MainMenu}" />
+        <Setter Property="TitleStyle" Value="{StaticResource TitleTextBlockStyle}" />
+        <Setter Property="ToolsPanel" Value="{StaticResource DefaultToolsPanel}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:AppWindow">
+                    <Border
+                        x:Name="LayoutBorder"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}">
+                        <Border.Style>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="BorderThickness" Value="1" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=WindowState}" Value="Maximized">
+                                        <Setter Property="BorderThickness" Value="0" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <Grid x:Name="LayoutRoot">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <!--<ContentPresenter Grid.RowSpan="2"
+																Content="{TemplateBinding WindowBarDecorator}" />-->
+
+                            <!--  Window Bar  -->
+                            <Grid SnapsToDevicePixels="True" UseLayoutRounding="True">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10" />
+                                    <!--  MainMenu  -->
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="5" />
+                                    <!--  Title  -->
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="5" />
+                                    <!--  Contentless Range  -->
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="5" />
+                                    <!--  Tools  -->
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="5" />
+                                    <!--  WindowsOperations  -->
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="0" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="10" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="10" />
+                                </Grid.RowDefinitions>
+
+                                <!--  Window Bar - MainMenu  -->
+                                <controls:PathButton
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Command="{Binding Source={x:Static SystemCommands.ShowSystemMenuCommand}}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                                    Focusable="False"
+                                    ImageHeight="30"
+                                    ImageWidth="30"
+                                    Source="{TemplateBinding MainMenuContent}"
+                                    Stretch="Uniform"
+                                    WindowChrome.IsHitTestVisibleInChrome="True" />
+
+                                <!--  Window Bar - Title  -->
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="3"
+                                    Focusable="False"
+                                    Style="{TemplateBinding TitleStyle}"
+                                    Text="{TemplateBinding Title}" />
+
+                                <!--  Window Bar - Tools  -->
+                                <ItemsControl
+                                    Grid.Row="0"
+                                    Grid.RowSpan="2"
+                                    Grid.Column="7"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Stretch"
+                                    Focusable="False"
+                                    ItemTemplate="{TemplateBinding ToolsTemplate}"
+                                    ItemTemplateSelector="{TemplateBinding ToolsTemplateSelector}"
+                                    ItemsPanel="{TemplateBinding ToolsPanel}"
+                                    ItemsSource="{TemplateBinding ToolsSource}"
+                                    WindowChrome.IsHitTestVisibleInChrome="True" />
+
+                                <!--  Window Bar - WindowsOperations  -->
+                                <ContentPresenter
+                                    Grid.Row="0"
+                                    Grid.RowSpan="2"
+                                    Grid.Column="9"
+                                    VerticalAlignment="Top"
+                                    Content="{Binding}"
+                                    ContentTemplate="{StaticResource WindowsOperationsTemplate}"
+                                    Focusable="False" />
+
+                            </Grid>
+
+                            <!--  Window Content  -->
+                            <AdornerDecorator Grid.Row="1" Focusable="False">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1" />
+                                        <RowDefinition />
+                                        <RowDefinition Height="0" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5" />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="1" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <ContentPresenter
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Focusable="False" />
+                                </Grid>
+                            </AdornerDecorator>
+
+                            <!--  resize grip  -->
+                            <Grid
+                                x:Name="ResizeGrip"
+                                Grid.Row="1"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Background="Transparent"
+                                Visibility="Collapsed"
+                                WindowChrome.ResizeGripDirection="BottomRight">
+                                <Path
+                                    Width="12"
+                                    Height="12"
+                                    Margin="1"
+                                    Data="{StaticResource Window.Operations.Resize}"
+                                    Focusable="False"
+                                    Stretch="None"
+                                    Stroke="{DynamicResource Accent.Default}"
+                                    StrokeThickness="1" />
+                            </Grid>
+
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="WindowState" Value="Maximized">
+                            <Setter TargetName="LayoutRoot" Property="Margin" Value="7" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="ResizeMode" Value="CanResizeWithGrip" />
+                                <Condition Property="WindowState" Value="Normal" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="ResizeGrip" Property="Visibility" Value="Visible" />
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource DefaultAppWindowStyle}" TargetType="{x:Type controls:AppWindow}" />
+
+</ResourceDictionary>

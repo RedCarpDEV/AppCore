@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/RCd.AppCore.Ui.Desktop.Controls;component/Resources/Thicknesses.xaml" />
+        <!--<ResourceDictionary Source="/RCd.AppCore.Ui.Desktop.Controls;component/Resources/Brushes.xaml" />-->
+        <ResourceDictionary Source="/RCd.AppCore.Ui.Desktop.Controls;component/Styles/TextBox.xaml" />
+        <ResourceDictionary Source="/RCd.AppCore.Ui.Desktop.Controls;component/Styles/Button.xaml" />
+        <ResourceDictionary Source="/RCd.AppCore.Ui.Desktop.Controls;component/Styles/ToggleButton.xaml" />
+        <ResourceDictionary Source="/RCd.AppCore.Ui.Desktop.Controls;component/Styles/ComboBox.xaml" />
+        <ResourceDictionary Source="/RCd.AppCore.Ui.Desktop.Controls;component/Styles/PathImage.xaml" />
+        <ResourceDictionary Source="/RCd.AppCore.Ui.Desktop.Controls;component/Styles/PathButton.xaml" />
+        <ResourceDictionary Source="/RCd.AppCore.Ui.Desktop.Controls;component/Styles/AppWindow.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

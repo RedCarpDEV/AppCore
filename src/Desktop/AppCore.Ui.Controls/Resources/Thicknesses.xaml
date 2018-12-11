@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+    <Thickness x:Key="Thickness.Border.Default">1</Thickness>
+    <Thickness x:Key="Thickness.Border.Empty">0</Thickness>
+
+    <Thickness x:Key="Thickness.Margin.Default">0</Thickness>
+    <Thickness x:Key="Thickness.Margin.Empty">0</Thickness>
+
+    <Thickness x:Key="Thickness.Padding.Default">3</Thickness>
+    <Thickness x:Key="Thickness.Padding.Empty">0</Thickness>
+
+</ResourceDictionary>

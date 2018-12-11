@@ -326,5 +326,3 @@ ASALocalRun/
 # NVidia Nsight GPU debugger configuration file
 *.nvuser
 
-/src/Desktop/AppCore.Ui.Controls
-/RCd.AppCore.Ui.Desktop.sln
